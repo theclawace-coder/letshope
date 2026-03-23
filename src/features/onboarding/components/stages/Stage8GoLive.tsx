@@ -3,7 +3,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { CheckCircle, AlertTriangle, Rocket } from 'lucide-react'
-import type { Stage1Data, Stage2Data, Stage3Data, Stage4Data, Stage5Data, Stage6Data, Stage7Data, Stage8Data } from '../../schemas'
+import type { Stage1Data, Stage2Data, Stage3Data, Stage4Data, Stage5Data } from '../../schemas'
+
+// Stage8Data is the activation payload
+type Stage8Data = { all_checks_passed: true }
 
 interface StageData {
   stage1?: Stage1Data
@@ -11,8 +14,6 @@ interface StageData {
   stage3?: Stage3Data
   stage4?: Stage4Data
   stage5?: Stage5Data
-  stage6?: Stage6Data
-  stage7?: Stage7Data
 }
 
 interface Stage8Props {
@@ -30,51 +31,51 @@ interface CheckItem {
 
 export function Stage8GoLive({ stageData, onActivate, onBack, isLoading }: Stage8Props) {
   const checks = useMemo<CheckItem[]>(() => {
-    const { stage3, stage4, stage5, stage6, stage7 } = stageData
+    const { stage2, stage3, stage4, stage5 } = stageData
 
     return [
       {
         label: 'Intake completed',
-        passed: !!(stage3?.date_of_birth && stage3?.plan_start_date && stage3?.plan_end_date && stage3?.emergency_contacts?.length),
-        detail: stage3 ? 'All required fields captured' : 'Stage 3 not completed',
+        passed: !!(stage2?.date_of_birth && stage2?.plan_start_date && stage2?.plan_end_date && stage2?.emergency_contacts?.length),
+        detail: stage2 ? 'All required fields captured' : 'Intake not completed',
       },
       {
         label: 'Service Agreement signed',
-        passed: !!(stage4?.service_agreement_signed),
-        detail: stage4?.service_agreement_signed ? 'Signed' : 'Not yet signed',
+        passed: !!(stage3?.service_agreement_signed),
+        detail: stage3?.service_agreement_signed ? 'Signed' : 'Not yet signed',
       },
       {
         label: 'Consent Form signed',
-        passed: !!(stage4?.consent_form_signed),
-        detail: stage4?.consent_form_signed ? 'Signed' : 'Not yet signed',
+        passed: !!(stage3?.consent_form_signed),
+        detail: stage3?.consent_form_signed ? 'Signed' : 'Not yet signed',
       },
       {
         label: 'Welcome Pack provided',
-        passed: !!(stage4?.documents_generated?.includes('welcome_pack')),
-        detail: stage4?.documents_generated?.includes('welcome_pack') ? 'Generated and provided' : 'Not yet generated',
+        passed: !!(stage3?.documents_generated?.includes('welcome_pack')),
+        detail: stage3?.documents_generated?.includes('welcome_pack') ? 'Generated and provided' : 'Not yet generated',
       },
       {
         label: 'Risk Assessment completed',
-        passed: !!(stage7?.risk_level),
-        detail: stage7 ? `Risk level: ${stage7.risk_level.toUpperCase()}` : 'Not yet completed',
+        passed: !!(stage5?.risk_level),
+        detail: stage5 ? `Risk level: ${stage5.risk_level.toUpperCase()}` : 'Not yet completed',
       },
       {
         label: 'Support plan / goals documented',
-        passed: !!(stage3?.goals?.length && stage3.goals.length > 0),
-        detail: stage3?.goals?.length ? `${stage3.goals.length} goal(s) documented` : 'No goals entered',
+        passed: !!(stage2?.goals?.length && stage2.goals.length > 0),
+        detail: stage2?.goals?.length ? `${stage2.goals.length} goal(s) documented` : 'No goals entered',
       },
       {
         label: 'Workers assigned',
-        passed: !!(stage5?.assignments?.length && stage5.assignments.length > 0),
-        detail: stage5?.assignments?.length
-          ? `${stage5.assignments.length} worker(s) assigned`
+        passed: !!(stage4?.assignments?.length && stage4.assignments.length > 0),
+        detail: stage4?.assignments?.length
+          ? `${stage4.assignments.length} worker(s) assigned`
           : 'No workers assigned',
       },
       {
         label: 'First booking scheduled',
-        passed: !!(stage6?.bookings?.length && stage6.bookings.length > 0 && stage6.bookings.some((b) => b.booking_date)),
-        detail: stage6?.bookings?.some((b) => b.booking_date)
-          ? `${stage6.bookings.filter((b) => b.booking_date).length} booking(s) scheduled`
+        passed: !!(stage4?.bookings?.length && stage4.bookings.length > 0 && stage4.bookings.some((b: { booking_date: string }) => b.booking_date)),
+        detail: stage4?.bookings?.some((b: { booking_date: string }) => b.booking_date)
+          ? `${stage4.bookings.filter((b: { booking_date: string }) => b.booking_date).length} booking(s) scheduled`
           : 'No bookings scheduled',
       },
     ]

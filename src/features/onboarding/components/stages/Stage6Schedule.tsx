@@ -8,7 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Badge } from '@/components/ui/badge'
 import { ALL_REGISTRATION_GROUPS } from '@/lib/constants'
 import { CalendarDays } from 'lucide-react'
-import type { Stage5Data, Stage6Data } from '../../schemas'
+import type { Stage4Data } from '../../schemas'
+
+type Stage5Data = Stage4Data
+type Stage6Data = Stage4Data
 
 interface Booking {
   worker_id: string

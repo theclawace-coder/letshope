@@ -186,9 +186,9 @@ export function ParticipantDetailPage() {
           <span>
             This participant was archived on{' '}
             <strong>{formatDate((participant as Record<string, unknown>).archived_at as string)}</strong>.
-            {(participant as Record<string, unknown>).archive_reason && (
-              <> Reason: {(participant as Record<string, unknown>).archive_reason as string}</>
-            )}
+            {(participant as Record<string, unknown>).archive_reason ? (
+              <> Reason: {String((participant as Record<string, unknown>).archive_reason)}</>
+            ) : null}
           </span>
         </div>
       )}

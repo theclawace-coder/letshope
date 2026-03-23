@@ -161,7 +161,7 @@ export function useSupersedePolicy() {
         p_effective_date: effectiveDate ?? new Date().toISOString().split('T')[0],
         p_review_date: reviewDate ?? null,
         p_created_by: profile?.id ?? null,
-      })
+      } as never)
       if (error) throw error
       return data as string // new version ID
     },
@@ -187,7 +187,6 @@ export function usePublishDraft() {
   return useMutation({
     mutationFn: async ({
       versionId,
-      masterId,
     }: {
       versionId: string
       masterId: string
@@ -195,7 +194,7 @@ export function usePublishDraft() {
       const { error } = await supabase.rpc('publish_policy_draft', {
         p_version_id: versionId,
         p_approved_by: profile?.id ?? null,
-      })
+      } as never)
       if (error) throw error
     },
     onSuccess: (_, { masterId }) => {

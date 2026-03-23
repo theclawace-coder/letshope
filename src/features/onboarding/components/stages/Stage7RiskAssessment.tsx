@@ -8,7 +8,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { RISK_ASSESSMENT_SECTIONS } from '../../constants'
 import { AlertTriangle, Phone, Languages } from 'lucide-react'
-import type { Stage7Data } from '../../schemas'
+import type { Stage5Data as Stage7Data } from '../../schemas'
 
 interface Stage7Props {
   defaultValues?: Partial<Stage7Data>

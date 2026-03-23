@@ -178,7 +178,7 @@ export function ParticipantEditForm({ participant, onSave, onCancel, isSaving }:
               <Input value={form.ndis_number} onChange={(e) => handleChange('ndis_number', e.target.value)} className="font-mono" />
             </FormField>
             <FormField label="Status">
-              <Select value={form.status} onValueChange={(v) => handleChange('status', v)}>
+              <Select value={form.status} onValueChange={(v) => v && handleChange('status', v)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {PARTICIPANT_STATUSES.map((s) => (
@@ -188,7 +188,7 @@ export function ParticipantEditForm({ participant, onSave, onCancel, isSaving }:
               </Select>
             </FormField>
             <FormField label="Funding Type">
-              <Select value={form.funding_type} onValueChange={(v) => handleChange('funding_type', v)}>
+              <Select value={form.funding_type} onValueChange={(v) => v && handleChange('funding_type', v)}>
                 <SelectTrigger><SelectValue placeholder="Select..." /></SelectTrigger>
                 <SelectContent>
                   {FUNDING_TYPES.map((f) => (
@@ -207,7 +207,7 @@ export function ParticipantEditForm({ participant, onSave, onCancel, isSaving }:
               <Input type="date" value={form.plan_end_date} onChange={(e) => handleChange('plan_end_date', e.target.value)} />
             </FormField>
             <FormField label="Urgency">
-              <Select value={form.urgency} onValueChange={(v) => handleChange('urgency', v)}>
+              <Select value={form.urgency} onValueChange={(v) => v && handleChange('urgency', v)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {URGENCY_LEVELS.map((u) => (

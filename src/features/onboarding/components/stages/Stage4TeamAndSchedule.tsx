@@ -161,7 +161,7 @@ export function Stage4TeamAndSchedule({ defaultValues, servicesRequested, onSubm
       {workersLoading ? (
         <Card><CardContent className="pt-6"><p className="text-sm text-muted-foreground">Loading workers...</p></CardContent></Card>
       ) : (
-        servicesRequested.map((groupCode, idx) => {
+        servicesRequested.map((groupCode) => {
           const availableWorkers = getWorkersForGroup(groupCode)
           const groupName = ALL_REGISTRATION_GROUPS[groupCode as keyof typeof ALL_REGISTRATION_GROUPS] || groupCode
           const currentAssignment = assignments[groupCode]

@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { ALL_REGISTRATION_GROUPS } from '@/lib/constants'
 import { UserCheck, AlertTriangle, ShieldAlert } from 'lucide-react'
-import type { Stage5Data } from '../../schemas'
+import type { Stage4Data as Stage5Data } from '../../schemas'
 
 interface Worker {
   id: string

@@ -16,7 +16,7 @@ import {
   previewBlob,
   downloadBlob,
 } from '@/lib/pdf/generate-document'
-import type { Stage4Data } from '../../schemas'
+import type { Stage3Data as Stage4Data } from '../../schemas'
 import type { Tables } from '@/lib/types/database'
 import { ALL_REGISTRATION_GROUPS } from '@/lib/constants'
 import { toast } from 'sonner'
@@ -228,7 +228,7 @@ export function Stage4Documents({ defaultValues, onSubmit, onBack, isLoading, pa
                 {services.length > 0 ? (
                   <div className="space-y-2">
                     {services.map((code) => {
-                      const group = ALL_REGISTRATION_GROUPS?.find((g: { code: string }) => g.code === code)
+                      const group = { name: ALL_REGISTRATION_GROUPS[code] || code }
                       return (
                         <div key={code} className="flex items-center gap-2 rounded bg-muted/50 px-3 py-2">
                           <span className="font-mono text-xs text-muted-foreground">{code}</span>
