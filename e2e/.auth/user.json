@@ -1,0 +1,14 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:5173",
+      "localStorage": [
+        {
+          "name": "sb-ikgbdqilldndqqjrusmo-auth-token",
+          "value": "{\"access_token\":\"eyJhbGciOiJFUzI1NiIsImtpZCI6IjRjYWY4MDMzLWYxYWUtNDY4NC05MmFhLTU3Y2FjYmE4ZTEwNSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2lrZ2JkcWlsbGRuZHFxanJ1c21vLnN1cGFiYXNlLmNvL2F1dGgvdjEiLCJzdWIiOiI3ODJjYjJlMC03ZTI3LTRlZGItYjBkMy1hZjRlNDIwOTc4MTAiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzc0MjMwMzkxLCJpYXQiOjE3NzQyMjY3OTEsImVtYWlsIjoiZXJmYW4udGVzdEBnbWFpbC5jb20iLCJwaG9uZSI6IiIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIiwicHJvdmlkZXJzIjpbImVtYWlsIl19LCJ1c2VyX21ldGFkYXRhIjp7ImVtYWlsIjoiZXJmYW4udGVzdEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZ1bGxfbmFtZSI6IkVyZmFuIiwicGhvbmVfdmVyaWZpZWQiOmZhbHNlLCJyb2xlIjoiZGlyZWN0b3IiLCJzdWIiOiI3ODJjYjJlMC03ZTI3LTRlZGItYjBkMy1hZjRlNDIwOTc4MTAifSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTc3NDIyNjc5MX1dLCJzZXNzaW9uX2lkIjoiNDE2NjM5YTctM2NhZi00NzdiLWIzZWMtYmYxYWE1M2U3NDRhIiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.0YG27ovKW4m8nf2w_FrYPzStc2ULv-DKz85aFpnapPVDYGXHkC6baYtdJW6_UjXTy4E8HmAcNV3tthsJXwd9eQ\",\"token_type\":\"bearer\",\"expires_in\":3600,\"expires_at\":1774230391,\"refresh_token\":\"rlaut3uhlq5x\",\"user\":{\"id\":\"782cb2e0-7e27-4edb-b0d3-af4e42097810\",\"aud\":\"authenticated\",\"role\":\"authenticated\",\"email\":\"erfan.test@gmail.com\",\"email_confirmed_at\":\"2026-03-21T10:24:09.205821Z\",\"phone\":\"\",\"confirmation_sent_at\":\"2026-03-21T10:20:32.686877Z\",\"confirmed_at\":\"2026-03-21T10:24:09.205821Z\",\"last_sign_in_at\":\"2026-03-23T00:46:31.824880316Z\",\"app_metadata\":{\"provider\":\"email\",\"providers\":[\"email\"]},\"user_metadata\":{\"email\":\"erfan.test@gmail.com\",\"email_verified\":false,\"full_name\":\"Erfan\",\"phone_verified\":false,\"role\":\"director\",\"sub\":\"782cb2e0-7e27-4edb-b0d3-af4e42097810\"},\"identities\":[{\"identity_id\":\"158b1575-4837-43cf-99f6-4860464ffc81\",\"id\":\"782cb2e0-7e27-4edb-b0d3-af4e42097810\",\"user_id\":\"782cb2e0-7e27-4edb-b0d3-af4e42097810\",\"identity_data\":{\"email\":\"erfan.test@gmail.com\",\"email_verified\":false,\"full_name\":\"Erfan\",\"phone_verified\":false,\"role\":\"director\",\"sub\":\"782cb2e0-7e27-4edb-b0d3-af4e42097810\"},\"provider\":\"email\",\"last_sign_in_at\":\"2026-03-21T10:20:32.684741Z\",\"created_at\":\"2026-03-21T10:20:32.684785Z\",\"updated_at\":\"2026-03-21T10:20:32.684785Z\",\"email\":\"erfan.test@gmail.com\"}],\"created_at\":\"2026-03-21T10:20:32.68167Z\",\"updated_at\":\"2026-03-23T00:46:31.850268Z\",\"is_anonymous\":false},\"weak_password\":null}"
+        }
+      ]
+    }
+  ]
+}
