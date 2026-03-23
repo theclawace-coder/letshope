@@ -221,10 +221,10 @@ export function useVersionChunks(versionId: string | undefined) {
       const { data, error } = await supabase
         .from('policy_documents')
         .select('id, title, chunk_index, content, category, created_at')
-        .eq('version_id', versionId)
-        .order('chunk_index')
+        .eq('version_id' as never, versionId)
+        .order('chunk_index' as never)
       if (error) throw error
-      return data ?? []
+      return (data ?? []) as Array<{ id: string; title: string; chunk_index: number; content: string; category: string | null; created_at: string }>
     },
     enabled: !!versionId,
   })

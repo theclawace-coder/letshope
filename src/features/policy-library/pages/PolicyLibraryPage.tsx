@@ -104,7 +104,7 @@ export function PolicyLibraryPage() {
                 className="pl-9"
               />
             </div>
-            <Select value={categoryFilter} onValueChange={(v) => setCategoryFilter(v === 'all' ? '' : v)}>
+            <Select value={categoryFilter} onValueChange={(v) => setCategoryFilter(v === 'all' ? '' : (v ?? ''))}>
               <SelectTrigger className="w-48">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>

@@ -17,7 +17,7 @@ import { LoadingState } from '@/components/shared/LoadingState'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
+// Separator available if needed
 import {
   Select,
   SelectContent,
@@ -33,7 +33,7 @@ import {
   CheckCircle,
   AlertTriangle,
 } from 'lucide-react'
-import { formatDate, formatDateTime } from '@/lib/formatters'
+import { formatDate } from '@/lib/formatters'
 import { RISK_STATUSES, MITIGATION_STATUSES } from '@/lib/constants'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
@@ -57,7 +57,8 @@ export function RiskDetailPage() {
 
   const isActive = risk.status === 'active' || risk.status === 'monitoring' || risk.status === 'escalated'
 
-  const handleStatusChange = async (newStatus: string) => {
+  const handleStatusChange = async (newStatus: string | null) => {
+    if (!newStatus) return
     try {
       await updateStatus.mutateAsync({ id: risk.id, status: newStatus })
       toast.success(`Risk status updated to ${newStatus.replace(/_/g, ' ')}`)
@@ -242,7 +243,7 @@ export function RiskDetailPage() {
                         {isActive ? (
                           <Select
                             value={m.status as string}
-                            onValueChange={(v) => handleMitigationStatusChange(m.id as string, v)}
+                            onValueChange={(v) => v && handleMitigationStatusChange(m.id as string, v)}
                           >
                             <SelectTrigger className="w-32 h-7 text-xs">
                               <SelectValue />
@@ -259,20 +260,20 @@ export function RiskDetailPage() {
                       </div>
                     </div>
                     <div className="flex gap-4 text-xs text-muted-foreground">
-                      {(m as Record<string, unknown>).responsible_person_name && (
-                        <span>Assigned: {(m as Record<string, unknown>).responsible_person_name as string}</span>
-                      )}
-                      {m.target_date && <span>Due: {formatDate(m.target_date as string)}</span>}
-                      {m.completion_date && (
+                      {(m as Record<string, unknown>).responsible_person_name ? (
+                        <span>Assigned: {String((m as Record<string, unknown>).responsible_person_name)}</span>
+                      ) : null}
+                      {m.target_date ? <span>Due: {formatDate(m.target_date as string)}</span> : null}
+                      {m.completion_date ? (
                         <span className="flex items-center gap-1">
                           <CheckCircle className="h-3 w-3 text-green-600" />
                           Completed: {formatDate(m.completion_date as string)}
                         </span>
-                      )}
+                      ) : null}
                     </div>
-                    {m.completion_notes && (
-                      <p className="text-xs text-muted-foreground">{m.completion_notes as string}</p>
-                    )}
+                    {m.completion_notes ? (
+                      <p className="text-xs text-muted-foreground">{String(m.completion_notes)}</p>
+                    ) : null}
                   </div>
                 ))}
               </div>
@@ -309,22 +310,22 @@ export function RiskDetailPage() {
                         {(a.likelihood as string)?.replace(/_/g, ' ')} x {a.consequence as string}
                       </span>
                     </div>
-                    {a.overall_score && (
+                    {a.overall_score ? (
                       <p className="text-xs text-muted-foreground">
-                        Scores: Env {a.environmental_score as number ?? '-'} | Health {a.health_score as number ?? '-'} | Behav {a.behavioral_score as number ?? '-'} = {a.overall_score as number}/30
+                        Scores: Env {String(a.environmental_score ?? '-')} | Health {String(a.health_score ?? '-')} | Behav {String(a.behavioral_score ?? '-')} = {String(a.overall_score)}/30
                       </p>
-                    )}
-                    <p className="text-sm whitespace-pre-wrap">{a.findings as string}</p>
-                    {a.recommendations && (
+                    ) : null}
+                    <p className="text-sm whitespace-pre-wrap">{String(a.findings)}</p>
+                    {a.recommendations ? (
                       <p className="text-sm text-muted-foreground">
-                        <span className="font-medium">Recommendations:</span> {a.recommendations as string}
+                        <span className="font-medium">Recommendations:</span> {String(a.recommendations)}
                       </p>
-                    )}
-                    {(a as Record<string, unknown>).assessed_by_name && (
+                    ) : null}
+                    {(a as Record<string, unknown>).assessed_by_name ? (
                       <p className="text-xs text-muted-foreground">
-                        Assessed by: {(a as Record<string, unknown>).assessed_by_name as string}
+                        Assessed by: {String((a as Record<string, unknown>).assessed_by_name)}
                       </p>
-                    )}
+                    ) : null}
                   </div>
                 ))}
               </div>
@@ -366,19 +367,19 @@ export function RiskDetailPage() {
                         {formatDate(rev.review_date as string)}
                       </span>
                     </div>
-                    <p className="text-sm whitespace-pre-wrap">{rev.findings as string}</p>
-                    {rev.actions_taken && (
+                    <p className="text-sm whitespace-pre-wrap">{String(rev.findings)}</p>
+                    {rev.actions_taken ? (
                       <p className="text-sm text-muted-foreground">
-                        <span className="font-medium">Actions Taken:</span> {rev.actions_taken as string}
+                        <span className="font-medium">Actions Taken:</span> {String(rev.actions_taken)}
                       </p>
-                    )}
+                    ) : null}
                     <div className="flex gap-4 text-xs text-muted-foreground">
-                      {(rev as Record<string, unknown>).reviewed_by_name && (
-                        <span>Reviewed by: {(rev as Record<string, unknown>).reviewed_by_name as string}</span>
-                      )}
-                      {rev.next_review_date && (
+                      {(rev as Record<string, unknown>).reviewed_by_name ? (
+                        <span>Reviewed by: {String((rev as Record<string, unknown>).reviewed_by_name)}</span>
+                      ) : null}
+                      {rev.next_review_date ? (
                         <span>Next review: {formatDate(rev.next_review_date as string)}</span>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 ))}

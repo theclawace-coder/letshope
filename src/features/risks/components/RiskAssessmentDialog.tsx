@@ -49,7 +49,7 @@ export function RiskAssessmentDialog({ open, onOpenChange, riskId }: RiskAssessm
     reset,
     formState: { errors },
   } = useForm<RiskAssessmentFormData>({
-    resolver: zodResolver(riskAssessmentSchema),
+    resolver: zodResolver(riskAssessmentSchema) as never,
     defaultValues: {
       likelihood: 'possible',
       consequence: 'moderate',

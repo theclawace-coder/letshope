@@ -111,7 +111,7 @@ export function RiskForm({ onSubmit, isSubmitting, defaultValues }: RiskFormProp
               <Label>Source</Label>
               <Select
                 value={watch('source') || ''}
-                onValueChange={(v) => setValue('source', v)}
+                onValueChange={(v) => setValue('source', v ?? undefined)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="How was this identified?" />

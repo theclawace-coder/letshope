@@ -9,6 +9,12 @@ interface Risk {
   category: string
   risk_level: string
   status: string
+  source: string | null
+  likelihood: string | null
+  consequence: string | null
+  environment_notes: string | null
+  triggers: string | null
+  existing_controls: string | null
   participant_id: string | null
   identified_by: string | null
   identified_date: string
@@ -113,7 +119,7 @@ export function useCreateRisk() {
       queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] })
 
       if ((data as Risk).risk_level === 'critical') {
-        const participants = (data as Record<string, unknown>).participants as { first_name: string; last_name: string } | null
+        const participants = (data as unknown as Record<string, unknown>).participants as { first_name: string; last_name: string } | null
         const name = participants ? `${participants.first_name} ${participants.last_name}` : 'a participant'
         toast.error(`CRITICAL risk identified for ${name}`, {
           description: (data as Risk).title,
@@ -244,7 +250,6 @@ export function useUpdateMitigationStatus() {
       id,
       status,
       completion_notes,
-      riskId,
     }: {
       id: string
       status: string
