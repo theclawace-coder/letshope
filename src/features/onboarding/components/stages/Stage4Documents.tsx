@@ -10,8 +10,6 @@ import { SignaturePad } from '@/components/shared/SignaturePad'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { FileText, CheckCircle, Circle, Download, Loader2, Shield, FileCheck } from 'lucide-react'
 import {
-  generateServiceAgreement,
-  generateConsentForm,
   generateParticipantHandbook,
   previewBlob,
   downloadBlob,

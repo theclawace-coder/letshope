@@ -85,6 +85,7 @@ export function Stage5AssignWorkers({ defaultValues, servicesRequested, onSubmit
         worker_name,
         registration_group,
       })),
+      bookings: [],
     }
     onSubmit(data)
   }

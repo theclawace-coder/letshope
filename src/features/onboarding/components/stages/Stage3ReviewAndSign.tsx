@@ -324,11 +324,11 @@ export function Stage3ReviewAndSign({ defaultValues, onSubmit, onBack, isLoading
                 {services.length > 0 ? (
                   <div className="space-y-2">
                     {services.map((code) => {
-                      const group = ALL_REGISTRATION_GROUPS?.find?.((g: { code: string }) => g.code === code)
+                      const groupName = ALL_REGISTRATION_GROUPS[code as keyof typeof ALL_REGISTRATION_GROUPS] || code
                       return (
                         <div key={code} className="flex items-center gap-2 rounded bg-muted/50 px-3 py-2">
                           <span className="font-mono text-xs text-muted-foreground">{code}</span>
-                          <span className="text-sm">{group?.name || code}</span>
+                          <span className="text-sm">{groupName}</span>
                         </div>
                       )
                     })}

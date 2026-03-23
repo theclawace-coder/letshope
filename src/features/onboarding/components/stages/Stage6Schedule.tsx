@@ -56,6 +56,7 @@ export function Stage6Schedule({ defaultValues, assignments, onSubmit, onBack, i
 
   function handleSubmit() {
     const data: Stage6Data = {
+      assignments: [],
       bookings,
     }
     onSubmit(data)

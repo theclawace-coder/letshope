@@ -1,8 +1,8 @@
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { stage3Schema } from '../../schemas'
-import type { Stage3Data } from '../../schemas'
-import type { Stage1Data, Stage2Data } from '../../schemas'
+import { stage2Schema } from '../../schemas'
+import type { Stage2Data } from '../../schemas'
+import type { Stage1Data } from '../../schemas'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,12 +15,12 @@ import { Badge } from '@/components/ui/badge'
 import { Plus, Trash2 } from 'lucide-react'
 
 interface Stage3Props {
-  defaultValues?: Partial<Stage3Data>
+  defaultValues?: Partial<Stage2Data>
   participantData: {
     stage1: Stage1Data
     stage2: Stage2Data
   }
-  onSubmit: (data: Stage3Data) => void
+  onSubmit: (data: Stage2Data) => void
   onBack: () => void
   isLoading: boolean
 }
@@ -35,13 +35,16 @@ export function Stage3IntakeDetails({ defaultValues, participantData, onSubmit, 
     watch,
     control,
     formState: { errors },
-  } = useForm<Stage3Data>({
-    resolver: zodResolver(stage3Schema),
+  } = useForm<Stage2Data>({
+    resolver: zodResolver(stage2Schema) as never,
     defaultValues: {
       funding_type: 'ndia_managed',
+      meeting_checklist: {},
+      service_answers: {},
+      has_guardian: false,
       emergency_contacts: [{ name: '', relationship: '', phone: '', is_guardian: false }],
-      goals: stage2.goals_notes
-        ? [{ goal: stage2.goals_notes, priority: 'medium' as const, notes: '' }]
+      goals: stage2.goals?.length
+        ? stage2.goals
         : [{ goal: '', priority: 'medium' as const, notes: '' }],
       communication_needs: stage2.communication_needs || '',
       cultural_needs: stage2.cultural_needs || '',
@@ -182,7 +185,7 @@ export function Stage3IntakeDetails({ defaultValues, participantData, onSubmit, 
                     <Label>Funding Type *</Label>
                     <Select
                       value={watch('funding_type')}
-                      onValueChange={(v) => setValue('funding_type', v as Stage3Data['funding_type'], { shouldValidate: true })}
+                      onValueChange={(v) => setValue('funding_type', v as Stage2Data['funding_type'], { shouldValidate: true })}
                     >
                       <SelectTrigger>
                         <SelectValue />
