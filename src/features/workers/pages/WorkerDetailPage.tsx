@@ -171,6 +171,7 @@ export function WorkerDetailPage() {
   const qualifiedGroups = (worker.qualified_registration_groups as string[] | null) || []
 
   function startEditing() {
+    if (!worker) return
     setEditFields({
       first_name: worker.first_name || '',
       last_name: worker.last_name || '',
@@ -256,9 +257,9 @@ export function WorkerDetailPage() {
             <p className="text-sm font-medium text-amber-900">This worker is archived</p>
             <p className="text-sm text-amber-700">
               Archived {formatDate((worker as Record<string, unknown>).archived_at as string)}
-              {(worker as Record<string, unknown>).archive_reason && (
-                <> — {(worker as Record<string, unknown>).archive_reason as string}</>
-              )}
+              {(worker as Record<string, unknown>).archive_reason ? (
+                <> — {String((worker as Record<string, unknown>).archive_reason)}</>
+              ) : null}
             </p>
           </div>
           <Button variant="outline" size="sm" onClick={handleRestore} disabled={restoreWorker.isPending}>
@@ -357,7 +358,7 @@ export function WorkerDetailPage() {
                       <Input type="date" value={editFields.date_of_birth} onChange={(e) => updateField('date_of_birth', e.target.value)} />
                     </EditRow>
                     <EditRow label="Employment Type">
-                      <Select value={editFields.employment_type} onValueChange={(v) => updateField('employment_type', v)}>
+                      <Select value={editFields.employment_type} onValueChange={(v) => updateField('employment_type', v ?? '')}>
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
                           {EMPLOYMENT_TYPES.map((t) => (
@@ -370,7 +371,7 @@ export function WorkerDetailPage() {
                       <Input value={editFields.role_title} onChange={(e) => updateField('role_title', e.target.value)} />
                     </EditRow>
                     <EditRow label="Status">
-                      <Select value={editFields.status} onValueChange={(v) => updateField('status', v)}>
+                      <Select value={editFields.status} onValueChange={(v) => updateField('status', v ?? '')}>
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
                           <SelectItem value="onboarding">Onboarding</SelectItem>
@@ -417,7 +418,7 @@ export function WorkerDetailPage() {
                 {isEditing ? (
                   <>
                     <EditRow label="NDIS Screening">
-                      <Select value={editFields.ndis_screening_status} onValueChange={(v) => updateField('ndis_screening_status', v)}>
+                      <Select value={editFields.ndis_screening_status} onValueChange={(v) => updateField('ndis_screening_status', v ?? '')}>
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
                           {SCREENING_STATUS_OPTIONS.map((o) => (
@@ -433,7 +434,7 @@ export function WorkerDetailPage() {
                       <Input type="date" value={editFields.ndis_screening_date} onChange={(e) => updateField('ndis_screening_date', e.target.value)} />
                     </EditRow>
                     <EditRow label="Police Check">
-                      <Select value={editFields.police_check_status} onValueChange={(v) => updateField('police_check_status', v)}>
+                      <Select value={editFields.police_check_status} onValueChange={(v) => updateField('police_check_status', v ?? '')}>
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
                           {POLICE_CHECK_STATUS_OPTIONS.map((o) => (
@@ -449,7 +450,7 @@ export function WorkerDetailPage() {
                       <Input type="date" value={editFields.police_check_expiry} onChange={(e) => updateField('police_check_expiry', e.target.value)} />
                     </EditRow>
                     <EditRow label="WWCC Status">
-                      <Select value={editFields.wwcc_status} onValueChange={(v) => updateField('wwcc_status', v)}>
+                      <Select value={editFields.wwcc_status} onValueChange={(v) => updateField('wwcc_status', v ?? '')}>
                         <SelectTrigger><SelectValue /></SelectTrigger>
                         <SelectContent>
                           {WWCC_STATUS_OPTIONS.map((o) => (

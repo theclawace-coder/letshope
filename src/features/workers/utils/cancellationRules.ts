@@ -8,7 +8,7 @@
  * - Provider can only claim if they were unable to fill the time slot
  */
 
-import { differenceInCalendarDays, isWeekend, addDays, isBefore, startOfDay } from 'date-fns'
+import { isWeekend, addDays, isBefore, startOfDay } from 'date-fns'
 
 export type CancellationType = 'standard' | 'short_notice' | 'no_show'
 export type CancelledBy = 'participant' | 'provider' | 'worker' | 'system'

@@ -157,7 +157,7 @@ export function BookingDialog({ open, onClose, booking, defaultDate }: BookingDi
     watch,
     formState: { errors },
   } = useForm<BookingFormData>({
-    resolver: zodResolver(bookingFormSchema),
+    resolver: zodResolver(bookingFormSchema) as never,
     defaultValues: booking
       ? {
           participant_id: booking.participant_id,

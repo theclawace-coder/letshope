@@ -104,7 +104,7 @@ export function useArchiveWorker() {
           action: 'archive',
           changed_by: userId,
           reason: reason || null,
-        })
+        } as never)
 
       if (auditError) throw auditError
     },
@@ -132,7 +132,7 @@ export function useRestoreWorker() {
           record_id: id,
           action: 'restore',
           changed_by: userId,
-        })
+        } as never)
 
       if (auditError) throw auditError
     },

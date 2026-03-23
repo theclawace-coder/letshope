@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useNdisPlans, useCreateNdisPlan, useUpdateNdisPlan } from '../hooks/useNdisPlans'
+import { useNdisPlans, useCreateNdisPlan } from '../hooks/useNdisPlans'
 import { useServiceAgreements } from '../hooks/useServiceAgreements'
 import { StatusBadge } from '@/components/shared/StatusBadge'
 import { EmptyState } from '@/components/shared/EmptyState'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import {
   Select,
@@ -23,7 +23,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Plus, FileText, Link2, CalendarRange, DollarSign } from 'lucide-react'
+import { Plus, FileText, Link2, CalendarRange } from 'lucide-react'
 import { formatDate, formatCurrency } from '@/lib/formatters'
 import { FUNDING_TYPES } from '@/lib/constants'
 
@@ -87,11 +87,9 @@ export function ParticipantPlansTab({ participantId }: ParticipantPlansTabProps)
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold">NDIS Plans</h3>
           <Dialog open={showAddPlan} onOpenChange={setShowAddPlan}>
-            <DialogTrigger asChild>
-              <Button size="sm">
-                <Plus className="h-4 w-4 mr-1" />
-                Add Plan
-              </Button>
+            <DialogTrigger render={<Button size="sm" />}>
+              <Plus className="h-4 w-4 mr-1" />
+              Add Plan
             </DialogTrigger>
             <DialogContent className="max-w-lg">
               <DialogHeader>
@@ -109,7 +107,7 @@ export function ParticipantPlansTab({ participantId }: ParticipantPlansTabProps)
                   </div>
                   <div className="space-y-1">
                     <Label className="text-xs">Funding Type</Label>
-                    <Select value={newPlan.funding_type} onValueChange={(v) => setNewPlan({ ...newPlan, funding_type: v })}>
+                    <Select value={newPlan.funding_type} onValueChange={(v) => setNewPlan({ ...newPlan, funding_type: v ?? '' })}>
                       <SelectTrigger><SelectValue placeholder="Select..." /></SelectTrigger>
                       <SelectContent>
                         {FUNDING_TYPES.map((ft) => (

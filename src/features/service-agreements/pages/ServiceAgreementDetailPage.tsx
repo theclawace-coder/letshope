@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useServiceAgreement, useUpdateServiceAgreement } from '../hooks/useServiceAgreements'
 import { PageHeader } from '@/components/shared/PageHeader'
-import { StatusBadge } from '@/components/shared/StatusBadge'
 import { LoadingState } from '@/components/shared/LoadingState'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -13,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { ArrowLeft, Link2, User, Calendar, DollarSign, FileText } from 'lucide-react'
+import { ArrowLeft, Link2, User, Calendar, FileText } from 'lucide-react'
 import { formatDate, formatCurrency } from '@/lib/formatters'
 import { ALL_REGISTRATION_GROUPS, SERVICE_AGREEMENT_STATUSES } from '@/lib/constants'
 
@@ -30,7 +29,8 @@ export function ServiceAgreementDetailPage() {
   const plan = agreement.ndis_plans as { id: string; plan_number: string | null; start_date: string; end_date: string; funding_type: string | null; budget_core: number; budget_capacity_building: number; budget_capital: number; status: string } | null
   const services = (agreement.services || []) as Array<{ code: string; name?: string; hours?: number; rate?: number }>
 
-  const handleStatusChange = async (newStatus: string) => {
+  const handleStatusChange = async (newStatus: string | null) => {
+    if (!newStatus) return
     await updateAgreement.mutateAsync({ id: agreement.id, status: newStatus })
   }
 

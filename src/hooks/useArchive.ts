@@ -49,7 +49,7 @@ export function useArchiveRecord() {
         const { error } = await supabase.rpc('archive_participant_cascade', {
           p_participant_id: id,
           p_reason: reason ?? 'Archived',
-        })
+        } as never)
         if (error) throw error
         return
       }
@@ -58,7 +58,7 @@ export function useArchiveRecord() {
         const { error } = await supabase.rpc('archive_worker_cascade', {
           p_worker_id: id,
           p_reason: reason ?? 'Archived',
-        })
+        } as never)
         if (error) throw error
         return
       }
@@ -68,7 +68,7 @@ export function useArchiveRecord() {
         p_table_name: table,
         p_record_id: id,
         p_reason: reason ?? null,
-      })
+      } as never)
       if (error) throw error
     },
     onSuccess: (_, { table }) => {
@@ -94,7 +94,7 @@ export function useRestoreRecord() {
       const { error } = await supabase.rpc('restore_record', {
         p_table_name: table,
         p_record_id: id,
-      })
+      } as never)
       if (error) throw error
     },
     onSuccess: (_, { table }) => {

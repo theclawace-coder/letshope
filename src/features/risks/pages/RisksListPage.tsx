@@ -74,7 +74,7 @@ export function RisksListPage() {
                 className="pl-9"
               />
             </div>
-            <Select value={categoryFilter} onValueChange={(v) => setCategoryFilter(v || '')}>
+            <Select value={categoryFilter} onValueChange={(v) => setCategoryFilter(v ?? '')}>
               <SelectTrigger className="w-40">
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
@@ -87,7 +87,7 @@ export function RisksListPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={levelFilter} onValueChange={(v) => setLevelFilter(v || '')}>
+            <Select value={levelFilter} onValueChange={(v) => setLevelFilter(v ?? '')}>
               <SelectTrigger className="w-36">
                 <SelectValue placeholder="All Levels" />
               </SelectTrigger>
@@ -100,7 +100,7 @@ export function RisksListPage() {
                 ))}
               </SelectContent>
             </Select>
-            <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v || '')}>
+            <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v ?? '')}>
               <SelectTrigger className="w-36">
                 <SelectValue placeholder="All Statuses" />
               </SelectTrigger>

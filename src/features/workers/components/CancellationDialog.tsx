@@ -189,7 +189,7 @@ export function CancellationDialog({ open, onClose, booking }: CancellationDialo
           {/* Cancelled by */}
           <div className="space-y-2">
             <Label>Cancelled by</Label>
-            <Select value={cancelledBy} onValueChange={(v) => setCancelledBy(v as CancelledBy)}>
+            <Select value={cancelledBy} onValueChange={(v) => v && setCancelledBy(v as CancelledBy)}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
@@ -206,7 +206,7 @@ export function CancellationDialog({ open, onClose, booking }: CancellationDialo
           {/* Reason */}
           <div className="space-y-2">
             <Label>Reason *</Label>
-            <Select value={reason} onValueChange={setReason}>
+            <Select value={reason} onValueChange={(v) => setReason(v ?? '')}>
               <SelectTrigger>
                 <SelectValue placeholder="Select reason..." />
               </SelectTrigger>

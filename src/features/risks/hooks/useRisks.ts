@@ -1,9 +1,21 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { supabase } from '@/lib/supabase'
 import { toast } from 'sonner'
-import type { Tables } from '@/lib/types'
 
-type Risk = Tables<'risks'>
+interface Risk {
+  id: string
+  title: string
+  description: string | null
+  category: string
+  risk_level: string
+  status: string
+  participant_id: string | null
+  identified_by: string | null
+  identified_date: string
+  next_review_date: string | null
+  created_at: string
+  updated_at: string
+}
 
 interface RiskFilters {
   participantId?: string

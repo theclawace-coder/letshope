@@ -68,7 +68,7 @@ export function ServiceAgreementsListPage() {
             className="pl-10"
           />
         </div>
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
+        <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v ?? '')}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="All statuses" />
           </SelectTrigger>

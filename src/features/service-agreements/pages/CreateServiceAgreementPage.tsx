@@ -20,7 +20,6 @@ import {
 } from '@/components/ui/select'
 import { ArrowLeft, Plus, Trash2, Link2, AlertCircle } from 'lucide-react'
 import { formatDate, formatCurrency } from '@/lib/formatters'
-import { FUNDING_TYPES } from '@/lib/constants'
 import { ALL_REGISTRATION_GROUPS } from '@/lib/constants'
 
 interface ServiceLine {
@@ -119,7 +118,7 @@ export function CreateServiceAgreementPage() {
             <CardTitle className="text-base">Participant</CardTitle>
           </CardHeader>
           <CardContent>
-            <Select value={participantId} onValueChange={(v) => { setParticipantId(v); setPlanId('') }}>
+            <Select value={participantId} onValueChange={(v) => { setParticipantId(v ?? ''); setPlanId('') }}>
               <SelectTrigger>
                 <SelectValue placeholder="Select participant..." />
               </SelectTrigger>
@@ -158,7 +157,7 @@ export function CreateServiceAgreementPage() {
                 </div>
               ) : (
                 <>
-                  <Select value={planId} onValueChange={setPlanId}>
+                  <Select value={planId} onValueChange={(v) => setPlanId(v ?? '')}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select NDIS plan (optional)..." />
                     </SelectTrigger>
@@ -232,7 +231,7 @@ export function CreateServiceAgreementPage() {
               <div key={i} className="flex gap-3 items-end">
                 <div className="flex-1 space-y-1">
                   <Label className="text-xs">Registration Group</Label>
-                  <Select value={svc.code} onValueChange={(v) => updateServiceLine(i, 'code', v)}>
+                  <Select value={svc.code} onValueChange={(v) => updateServiceLine(i, 'code', v ?? '')}>
                     <SelectTrigger>
                       <SelectValue placeholder="Select service..." />
                     </SelectTrigger>
