@@ -34,7 +34,7 @@ export function GoalForm({ onSubmit, isSubmitting, defaultValues }: GoalFormProp
     watch,
     formState: { errors },
   } = useForm<GoalFormData>({
-    resolver: zodResolver(goalFormSchema),
+    resolver: zodResolver(goalFormSchema) as never,
     defaultValues: {
       timeframe: 'short_term',
       priority: 'medium',
@@ -55,7 +55,7 @@ export function GoalForm({ onSubmit, isSubmitting, defaultValues }: GoalFormProp
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit as never)} className="space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="text-base">Goal Details</CardTitle>

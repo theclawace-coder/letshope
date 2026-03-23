@@ -99,7 +99,7 @@ export function useArchiveDocument() {
     mutationFn: async (id: string) => {
       const { data, error } = await supabase
         .from('documents')
-        .update({ status: 'archived' })
+        .update({ status: 'archived' } as never)
         .eq('id', id)
         .select()
         .single()
@@ -120,7 +120,7 @@ export function useMoveDocument() {
     mutationFn: async ({ id, folderId }: { id: string; folderId: string | null }) => {
       const { data, error } = await supabase
         .from('documents')
-        .update({ folder_id: folderId })
+        .update({ folder_id: folderId } as never)
         .eq('id', id)
         .select()
         .single()

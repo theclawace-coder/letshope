@@ -98,7 +98,7 @@ export function GoalDetailPage() {
 
             <div className="flex items-center gap-3">
               <span className="text-sm text-muted-foreground">Update status:</span>
-              <Select value={goal.status} onValueChange={handleStatusChange}>
+              <Select value={goal.status} onValueChange={(v) => v && handleStatusChange(v)}>
                 <SelectTrigger className="w-44">
                   <SelectValue />
                 </SelectTrigger>
@@ -131,7 +131,7 @@ export function GoalDetailPage() {
                     <XAxis dataKey="date" fontSize={12} />
                     <YAxis domain={[0, 100]} fontSize={12} tickFormatter={(v) => `${v}%`} />
                     <Tooltip
-                      formatter={(value: number) => [`${value}%`, 'Progress']}
+                      formatter={(value) => [`${value}%`, 'Progress']}
                       labelStyle={{ fontWeight: 'bold' }}
                     />
                     <Line

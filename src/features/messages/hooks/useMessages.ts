@@ -30,8 +30,9 @@ export function useMessageThreads() {
       if (tErr) throw tErr
       if (!threadIds?.length) return []
 
-      const ids = threadIds.map((t) => t.thread_id)
-      const lastReadMap = Object.fromEntries(threadIds.map((t) => [t.thread_id, t.last_read_at]))
+      const threadIdRows = threadIds as unknown as Array<{ thread_id: string; last_read_at: string | null }>
+      const ids = threadIdRows.map((t) => t.thread_id)
+      const lastReadMap = Object.fromEntries(threadIdRows.map((t) => [t.thread_id, t.last_read_at]))
 
       // Get thread details
       const { data: threads, error: thErr } = await supabase
@@ -52,8 +53,11 @@ export function useMessageThreads() {
       if (pErr) throw pErr
 
       // Get latest message per thread
+      const threadRows = (threads ?? []) as unknown as Array<Record<string, unknown> & { id: string }>
+      const participantRows = (allParticipants ?? []) as unknown as Array<{ thread_id: string; user_id: string; last_read_at: string | null; profiles: { full_name: string } | null }>
+
       const threadDetails: ThreadWithDetails[] = await Promise.all(
-        (threads ?? []).map(async (thread) => {
+        threadRows.map(async (thread) => {
           const { data: lastMsg } = await supabase
             .from('messages')
             .select('content, created_at, profiles!messages_sender_id_fkey(full_name)')
@@ -69,11 +73,11 @@ export function useMessageThreads() {
             .neq('sender_id', profile.id)
             .gt('created_at', lastReadMap[thread.id] ?? '1970-01-01')
 
-          const participants = (allParticipants ?? [])
+          const participants = participantRows
             .filter((p) => p.thread_id === thread.id)
             .map((p) => ({
               user_id: p.user_id,
-              full_name: (p.profiles as { full_name: string } | null)?.full_name ?? 'Unknown',
+              full_name: p.profiles?.full_name ?? 'Unknown',
               last_read_at: p.last_read_at,
             }))
 

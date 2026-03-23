@@ -42,12 +42,13 @@ export function useCreateDocumentVersion() {
         .single()
 
       if (docError) throw docError
+      const docRow = doc as unknown as { version: number; file_path: string }
 
-      const nextVersion = (doc.version || 1) + 1
+      const nextVersion = (docRow.version || 1) + 1
 
       // Build storage path based on existing pattern
       const ext = file.name.split('.').pop()
-      const basePath = doc.file_path.replace(/\/[^/]+$/, '')
+      const basePath = docRow.file_path.replace(/\/[^/]+$/, '')
       const newFilePath = `${basePath}/${file.name.replace(`.${ext}`, '')}_v${nextVersion}.${ext}`
 
       // Upload new file
@@ -68,7 +69,7 @@ export function useCreateDocumentVersion() {
           mime_type: file.type,
           change_summary: changeSummary,
           uploaded_by: uploadedBy,
-        })
+        } as never)
 
       if (versionError) throw versionError
 
@@ -80,7 +81,7 @@ export function useCreateDocumentVersion() {
           file_path: newFilePath,
           file_size: file.size,
           mime_type: file.type,
-        })
+        } as never)
         .eq('id', documentId)
         .select()
         .single()

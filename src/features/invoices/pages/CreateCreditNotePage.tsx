@@ -159,7 +159,7 @@ export function CreateCreditNotePage() {
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label>Reason *</Label>
-                <Select value={reason} onValueChange={setReason}>
+                <Select value={reason} onValueChange={(v) => setReason(v ?? '')}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select reason..." />
                   </SelectTrigger>
