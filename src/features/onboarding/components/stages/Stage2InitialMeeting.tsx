@@ -16,7 +16,7 @@ import type { Stage2Data } from '../../schemas'
 interface Stage2Props {
   defaultValues?: Partial<Stage2Data>
   servicesRequested: string[]
-  onSubmit: (data: Stage2Data) => void
+  onSubmit: (data: Partial<Stage2Data>) => void
   onBack: () => void
   isLoading: boolean
 }
@@ -122,7 +122,7 @@ export function Stage2InitialMeeting({ defaultValues, servicesRequested, onSubmi
   }
 
   function handleSubmit() {
-    const data: Stage2Data = {
+    const data: Partial<Stage2Data> = {
       meeting_checklist: buildChecklistRecord(),
       service_answers: serviceAnswers,
       has_guardian: hasGuardian,

@@ -59,16 +59,18 @@ export function NotificationBell() {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
-          <Bell className="h-4 w-4" />
-          {unreadCount > 0 && (
-            <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-bold text-destructive-foreground">
-              {unreadCount > 99 ? '99+' : unreadCount}
-            </span>
-          )}
-        </Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger
+        render={
+          <Button variant="ghost" size="icon" className="relative">
+            <Bell className="h-4 w-4" />
+            {unreadCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-bold text-destructive-foreground">
+                {unreadCount > 99 ? '99+' : unreadCount}
+              </span>
+            )}
+          </Button>
+        }
+      />
 
       <DropdownMenuContent align="end" className="w-96 p-0">
         <div className="flex items-center justify-between border-b px-4 py-3">

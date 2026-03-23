@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   Bell,
   Check,
@@ -120,7 +120,7 @@ export function NotificationsPage() {
             </TabsList>
           </Tabs>
 
-          <Select value={category} onValueChange={setCategory}>
+          <Select value={category} onValueChange={(v) => setCategory(v ?? 'all')}>
             <SelectTrigger className="w-44">
               <SelectValue placeholder="Category" />
             </SelectTrigger>

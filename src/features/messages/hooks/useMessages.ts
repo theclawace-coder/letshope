@@ -147,18 +147,19 @@ export function useCreateThread() {
       if (!profile?.id) throw new Error('Not authenticated')
 
       // Create thread
-      const { data: thread, error: tErr } = await supabase
+      const { data: threadRaw, error: tErr } = await supabase
         .from('message_threads')
         .insert({
           subject: input.subject,
           created_by: profile.id,
           entity_type: input.entity_type,
           entity_id: input.entity_id,
-        })
+        } as never)
         .select()
         .single()
 
       if (tErr) throw tErr
+      const thread = threadRaw as unknown as { id: string }
 
       // Add all participants (including creator)
       const allParticipantIds = [...new Set([profile.id, ...input.participant_ids])]
@@ -168,7 +169,7 @@ export function useCreateThread() {
           allParticipantIds.map((uid) => ({
             thread_id: thread.id,
             user_id: uid,
-          }))
+          })) as never
         )
 
       if (pErr) throw pErr
@@ -180,7 +181,7 @@ export function useCreateThread() {
           thread_id: thread.id,
           sender_id: profile.id,
           content: input.initial_message,
-        })
+        } as never)
 
       if (mErr) throw mErr
 
@@ -199,7 +200,7 @@ export function useCreateThread() {
         }))
 
       if (notifInserts.length > 0) {
-        await supabase.from('notifications').insert(notifInserts)
+        await supabase.from('notifications').insert(notifInserts as never)
       }
 
       return thread as MessageThread
@@ -225,7 +226,7 @@ export function useSendMessage() {
           thread_id: input.thread_id,
           sender_id: profile.id,
           content: input.content,
-        })
+        } as never)
         .select()
         .single()
 
@@ -234,7 +235,7 @@ export function useSendMessage() {
       // Mark thread as read for sender
       await supabase
         .from('message_thread_participants')
-        .update({ last_read_at: new Date().toISOString() })
+        .update({ last_read_at: new Date().toISOString() } as never)
         .eq('thread_id', input.thread_id)
         .eq('user_id', profile.id)
 
@@ -253,16 +254,16 @@ export function useSendMessage() {
           .single()
 
         await supabase.from('notifications').insert(
-          participants.map((p) => ({
+          participants.map((p: { user_id: string }) => ({
             user_id: p.user_id,
             category: 'message' as const,
             priority: 'normal' as const,
             title: `${profile.full_name} replied`,
-            body: thread?.subject ?? 'New message',
+            body: (thread as { subject: string } | null)?.subject ?? 'New message',
             entity_type: 'message_thread',
             entity_id: input.thread_id,
             action_url: `/messages/${input.thread_id}`,
-          }))
+          })) as never
         )
       }
 
@@ -285,7 +286,7 @@ export function useMarkThreadRead() {
 
       const { error } = await supabase
         .from('message_thread_participants')
-        .update({ last_read_at: new Date().toISOString() })
+        .update({ last_read_at: new Date().toISOString() } as never)
         .eq('thread_id', threadId)
         .eq('user_id', profile.id)
 
@@ -312,7 +313,7 @@ export function useStaffMembers() {
         .order('full_name')
 
       if (error) throw error
-      return (data ?? []).filter((p) => p.id !== profile?.id)
+      return ((data ?? []) as Array<{ id: string; full_name: string; email: string; role: string }>).filter((p) => p.id !== profile?.id)
     },
     enabled: !!profile?.id,
   })

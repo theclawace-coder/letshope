@@ -76,7 +76,7 @@ export function useMarkNotificationRead() {
     mutationFn: async (id: string) => {
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ is_read: true } as never)
         .eq('id', id)
       if (error) throw error
     },
@@ -96,7 +96,7 @@ export function useMarkAllRead() {
       if (!profile?.id) return
       const { error } = await supabase
         .from('notifications')
-        .update({ is_read: true })
+        .update({ is_read: true } as never)
         .eq('user_id', profile.id)
         .eq('is_read', false)
       if (error) throw error
@@ -116,7 +116,7 @@ export function useArchiveNotification() {
     mutationFn: async (id: string) => {
       const { error } = await supabase
         .from('notifications')
-        .update({ is_archived: true })
+        .update({ is_archived: true } as never)
         .eq('id', id)
       if (error) throw error
     },
@@ -134,7 +134,7 @@ export function useCreateNotification() {
     mutationFn: async (input: InsertTables<'notifications'>) => {
       const { data, error } = await supabase
         .from('notifications')
-        .insert(input)
+        .insert(input as never)
         .select()
         .single()
       if (error) throw error
@@ -179,7 +179,7 @@ export function useUpsertNotificationPreference() {
       const { data, error } = await supabase
         .from('notification_preferences')
         .upsert(
-          { ...input, user_id: profile.id },
+          { ...input, user_id: profile.id } as never,
           { onConflict: 'user_id,category' }
         )
         .select()

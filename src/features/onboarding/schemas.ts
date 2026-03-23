@@ -79,6 +79,7 @@ export const stage2Schema = z.object({
   // Emergency contacts
   emergency_contacts: z.array(emergencyContactSchema).min(1, 'At least one emergency contact'),
   // Goals
+  goals_notes: z.string().optional(),
   goals: z.array(goalSchema).min(1, 'At least one goal is required'),
 })
 
